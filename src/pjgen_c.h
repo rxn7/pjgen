@@ -44,13 +44,13 @@ static void save_makefile(const char *_compiler, const char *_lang, const char *
 static void save_main(bool _is_cpp /* is it C or C++ file? */, const char *_src_file_name, bool _simple) {
 	#define MAIN_C \
 		"#include <stdio.h>\n\n" \
-		"int main(int argc, const char** argv) {\n" \
+		"int main(int argc, const char **argv) {\n" \
 		"	printf(\"Hello, World!\");\n" \
 		"}"
 
 	#define MAIN_CPP \
 		"#include <iostream>\n\n" \
-		"int main(int argc, const char** argv) {\n" \
+		"int main(int argc, const char **argv) {\n" \
 		"	std::cout << \"Hello, World!\" << std::endl;\n" \
 		"}"
 
