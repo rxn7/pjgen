@@ -36,7 +36,7 @@ static void save_makefile(const char *_compiler, const char *_lang, const char *
 
 	char path[PATH_SIZE];
         strcpy(path, g_cwd); 
-        strcat(path, "/makefile");
+        strcat(path, "/Makefile");
 
 	save_to_file(path, content);
 }
