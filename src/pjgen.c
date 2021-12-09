@@ -25,8 +25,8 @@ int main(int argc, const char **argv) {
         g_proj_name = malloc(sizeof(char) * strlen(argv[2]) + 1);
         strcpy(g_proj_name, argv[2]);
         
-        for(int i=3; i<argc-1; ++i) {
-                if(strcmp(argv[3], "-s") == 0 || strcmp(argv[3], "--simple") == 0) {
+        for(int i=3; i<argc; ++i) {
+                if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--simple") == 0) {
                         g_flag_simple = true;
                 }
         }
