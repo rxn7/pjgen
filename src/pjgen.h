@@ -10,7 +10,7 @@
 
 extern char g_cwd[]; /* Declared in pjgen.c */
 extern char *g_proj_name; /* Declared in pjgen.c */
-extern int g_flag_simple; /* Declared in pjgen.c */
+extern _Bool g_flag_simple; /* Declared in pjgen.c */
 
 void save_to_file(const char *path, const char *content);
 

@@ -4,7 +4,7 @@
 
 char g_cwd[PATH_SIZE];
 char *g_proj_name;
-int g_flag_simple = 0;
+_Bool g_flag_simple = 0;
 
 static void create_root_folder();
 static void print_help();
@@ -25,7 +25,7 @@ int main(int argc, const char **argv) {
         g_proj_name = malloc(sizeof(char) * strlen(argv[2]) + 1);
         strcpy(g_proj_name, argv[2]);
         
-        for(int i=3; i<argc; ++i) {
+        for(unsigned char i=3; i<argc; ++i) {
                 if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--simple") == 0) {
                         g_flag_simple = true;
                 }
