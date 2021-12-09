@@ -67,8 +67,8 @@ void save_to_file(const char *path, const char *content) {
         if(!file) {
                 printf("Unable to open file '%s'.\n", path);
                 return;
+        }
 
         fputs(content, file);
-        }
         fclose(file);
 }
