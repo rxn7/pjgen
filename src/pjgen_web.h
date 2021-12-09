@@ -25,7 +25,7 @@ GEN_PROJECT(web) {
         strcat(css_path, "/style.css");
 
 	char html_src[4096];
-	sprintf(html_src, INDEX_HTML, name);
+	sprintf(html_src, INDEX_HTML, g_proj_name);
 
 	save_to_file(html_path, html_src);
 	save_to_file(css_path, "");

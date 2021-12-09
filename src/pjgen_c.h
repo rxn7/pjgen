@@ -4,10 +4,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-static void save_makefile(const char *compiler, const char *lang, const char *cflags, const char *proj_name, bool simple) {
+static void save_makefile(const char *compiler, const char *lang, const char *cflags) {
         #define MAKEFILE_SIMPLE \
                 "all:\n" \
-                "       %s main.c -o %s\n" \
+                "\t%s main.c -o %s\n" \
 
 	#define MAKEFILE \
 		"SRCS = -c src/*.%s\n" \
@@ -18,20 +18,20 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 		"all: compile link clean\n" \
 		"\n" \
 		"compile:\n" \
-		"	%s $(SRCS) $(HDRS) $(CFLAGS)\n" \
+		"\t%s $(SRCS) $(HDRS) $(CFLAGS)\n" \
 		"\n" \
 		"link:\n" \
-		"	%s $(OBJS) $(LIBS) -o %s\n" \
+		"\t%s $(OBJS) $(LIBS) -o %s\n" \
 		"\n" \
 		"clean:\n" \
-		"	rm *.o"
+		"\trm *.o"
 
 	char content[4096];
 
-        if(simple) {
-                sprintf(content, MAKEFILE_SIMPLE, compiler, proj_name);
+        if(g_flag_simple) {
+                sprintf(content, MAKEFILE_SIMPLE, compiler, g_proj_name);
         } else {
-                sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, proj_name);
+                sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
         }
 
 	char path[PATH_SIZE];
@@ -41,22 +41,24 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 	save_to_file(path, content);
 }
 
-static void save_main(bool is_cpp, const char *src_file_name, bool simple) {
+static void save_main(bool is_cpp, const char *src_file_name) {
 	#define MAIN_C \
 		"#include <stdio.h>\n\n" \
 		"int main(int argc, const char **argv) {\n" \
-		"	printf(\"Hello, World!\");\n" \
+		"\tprintf(\"Hello, World!\");\n" \
 		"}"
 
 	#define MAIN_CPP \
 		"#include <iostream>\n\n" \
 		"int main(int argc, const char **argv) {\n" \
-		"	std::cout << \"Hello, World!\" << std::endl;\n" \
+		"\tstd::cout << \"Hello, World!\" << std::endl;\n" \
 		"}"
 
         char src_file_path[PATH_SIZE];
-        if(simple) {
+
+        if(g_flag_simple) {
                 strcpy(src_file_path, g_cwd);
+                strcat(src_file_path, "/");
                 strcat(src_file_path, src_file_name);
         } else {
                 char src_dir_path[PATH_SIZE];
@@ -76,13 +78,11 @@ static void save_main(bool is_cpp, const char *src_file_name, bool simple) {
 } 
 
 GEN_PROJECT(c) {
-        /* TODO: Check if -s or --simple argument is passed. */
-        save_main(false, "main.c", false);
-        save_makefile("gcc", "c", "-std=gnu99", name, false);
+        save_main(false, "main.c");
+        save_makefile("gcc", "c", "-std=gnu99");
 }
 
 GEN_PROJECT(cpp) {
-        /* TODO: Check if -s or --simple argument is passed. */
-        save_main(false, "main.cpp", false);
-        save_makefile("g++", "cpp", "-std=c++17", name, false);
+        save_main(true, "main.cpp");
+        save_makefile("g++", "cpp", "-std=c++17");
 }

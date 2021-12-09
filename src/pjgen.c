@@ -1,42 +1,50 @@
-#include <stdio.h>
-
 #include "pjgen.h"
 #include "pjgen_c.h"
 #include "pjgen_web.h"
 
 char g_cwd[PATH_SIZE];
+char *g_proj_name;
+int g_flag_simple = 0;
 
-static void create_root_folder(const char *name);
+static void create_root_folder();
+static void print_help();
+
+#define CUR_SET_X(x) "\r\033[" x "C"
+#define HELP_TAB_SZ "20"
 
 int main(int argc, const char **argv) {
         if(argc < 3) {
-                puts("Visit https://github.com/rotth/pjtmp for help.");
+                print_help();
                 return 1;
         }
 
         getcwd(g_cwd, PATH_SIZE);
 
         const char *lang = argv[1];
-        const char *name = argv[2];
 
-        create_root_folder(name);
-
-        if(strcmp(lang, "c") == 0) {
-                gen_c(name, 0, 0);
-        } else if(strcmp(lang, "cpp") == 0) {
-                gen_cpp(name, 0, 0);
-        } else if(strcmp(lang, "web") == 0) {
-                gen_web(name, 0, 0);
+        g_proj_name = malloc(sizeof(char) * strlen(argv[2]) + 1);
+        strcpy(g_proj_name, argv[2]);
+        
+        for(int i=3; i<argc-1; ++i) {
+                if(strcmp(argv[3], "-s") == 0 || strcmp(argv[3], "--simple") == 0) {
+                        g_flag_simple = true;
+                }
         }
+
+        create_root_folder();
+
+        if(strcmp(lang, "c") == 0)              gen_c();
+        else if(strcmp(lang, "cpp") == 0)       gen_cpp();
+        else if(strcmp(lang, "web") == 0)       gen_web();
         
         return 0;
 }
 
+static void create_root_folder() {
         char loc[PATH_SIZE];
-        static void create_root_folder(const char *name) {
         strcpy(loc, g_cwd);
         strcat(loc, "/");
-        strcat(loc, name);
+        strcat(loc, g_proj_name);
 
         printf("Project root location: %s\n", loc);
 
@@ -45,13 +53,22 @@ int main(int argc, const char **argv) {
         strcpy(g_cwd, loc);
 }
 
+static void print_help() {
+        puts("pjgen ~ rxtthin");
+        puts("---------------");
+        puts("usage:" CUR_SET_X(HELP_TAB_SZ) "pjgen <lang> <proj name> <optional flags>");
+        puts("<lang>:" CUR_SET_X(HELP_TAB_SZ) "c, cpp, web");
+        puts("<proj name>:" CUR_SET_X(HELP_TAB_SZ) "Name of your project, remember to wrap the text with quotes if it has more than one word.");
+        puts("<optional flags>:" CUR_SET_X(HELP_TAB_SZ) "[-s, --simple] - simplifies the project structure (doesn't work with all langs).");
+}
+
 void save_to_file(const char *path, const char *content) {
         FILE *file = fopen(path, "w");
         if(!file) {
                 printf("Unable to open file '%s'.\n", path);
                 return;
-        }
 
         fputs(content, file);
+        }
         fclose(file);
 }

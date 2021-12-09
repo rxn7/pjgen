@@ -8,8 +8,10 @@
 
 #define PATH_SIZE 4096
 
-extern char g_cwd[]; /* Declared in pjtmp.c. */
+extern char g_cwd[]; /* Declared in pjgen.c */
+extern char *g_proj_name; /* Declared in pjgen.c */
+extern int g_flag_simple; /* Declared in pjgen.c */
 
 void save_to_file(const char *path, const char *content);
 
-#define GEN_PROJECT(lang) void gen_##lang(const char *name, int argc, const char *args)
+#define GEN_PROJECT(lang) void gen_##lang()
