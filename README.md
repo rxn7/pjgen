@@ -15,6 +15,6 @@ pjgen \<lang\> \<proj name\> \<optional flags\>
 \<optional flags\>:   \[-s, --simple\] - simplifies the project structure (doesn't work with all langs).  
 
 # Install
-* ```git clone -b stable http://github.com/rotth/pjgen.git```  
+* ```git clone http://github.com/rotth/pjgen.git```  
 * ```cd pjgen```  
 * ```make install```
