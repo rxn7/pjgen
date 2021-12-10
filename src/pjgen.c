@@ -46,8 +46,14 @@ static void create_root_folder() {
         strcat(loc, "/");
         strcat(loc, g_proj_name);
 
-        printf("Project root location: %s\n", loc);
+        DIR *dir = opendir(loc);
+        closedir(dir);
+        if(dir) {
+                printf("Directory '%s' already exists!\n", loc);
+                exit(EXIT_FAILURE);
+        }
 
+        printf("Project root location: %s\n", loc);
         mkdir(loc, 0700);
         
         strcpy(g_cwd, loc);

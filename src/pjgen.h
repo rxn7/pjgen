@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>	
+#include <dirent.h>
 #include <sys/stat.h>
 
 #define PATH_SIZE 4096
