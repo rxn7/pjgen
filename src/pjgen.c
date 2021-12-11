@@ -25,6 +25,7 @@ int main(int argc, const char **argv) {
         g_proj_name = malloc(sizeof(char) * strlen(argv[2]) + 1);
         strcpy(g_proj_name, argv[2]);
         
+        // TODO: Different flag check for each lang.
         for(unsigned char i=3; i<argc; ++i) {
                 if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--simple") == 0) {
                         g_flag_simple = true;
