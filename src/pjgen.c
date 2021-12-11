@@ -28,6 +28,8 @@ int main(int argc, const char **argv) {
         for(unsigned char i=3; i<argc; ++i) {
                 if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--simple") == 0) {
                         g_flag_simple = true;
+                } else {
+                        printf("Unknown flag '%s'.\n", argv[i]);
                 }
         }
 
