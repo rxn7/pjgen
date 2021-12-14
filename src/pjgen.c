@@ -4,7 +4,8 @@
 
 char g_cwd[PATH_SIZE];
 char *g_proj_name;
-_Bool g_flag_simple = 0;
+int *g_argc_p;
+const char **g_argv_p;
 
 static void create_root_folder();
 static void print_help();
@@ -18,6 +19,9 @@ int main(int argc, const char **argv) {
                 return 1;
         }
 
+        g_argc_p = &argc;
+        g_argv_p = argv;
+
         getcwd(g_cwd, PATH_SIZE);
 
         const char *lang = argv[1];
@@ -25,15 +29,6 @@ int main(int argc, const char **argv) {
         g_proj_name = malloc(sizeof(char) * strlen(argv[2]) + 1);
         strcpy(g_proj_name, argv[2]);
         
-        // TODO: Different flag check for each lang.
-        for(unsigned char i=3; i<argc; ++i) {
-                if(strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--simple") == 0) {
-                        g_flag_simple = true;
-                } else {
-                        printf("Unknown flag '%s'.\n", argv[i]);
-                }
-        }
-
         create_root_folder();
 
         if(strcmp(lang, "c") == 0)              gen_c();
@@ -65,10 +60,10 @@ static void create_root_folder() {
 static void print_help() {
         puts("pjgen ~ rxtthin");
         puts("---------------");
-        puts("usage:" CUR_SET_X(HELP_TAB_SZ) "pjgen <lang> <proj name> <optional flags>");
+        puts("usage:" CUR_SET_X(HELP_TAB_SZ) "pjgen <lang> <proj name> <flags>");
         puts("<lang>:" CUR_SET_X(HELP_TAB_SZ) "c, cpp, web");
         puts("<proj name>:" CUR_SET_X(HELP_TAB_SZ) "Name of your project, remember to wrap the text with quotes if it has more than one word.");
-        puts("<optional flags>:" CUR_SET_X(HELP_TAB_SZ) "[-s, --simple] - simplifies the project structure (doesn't work with all langs).");
+        puts("<flags>:\n\t<C/C++>: [-s, --simple]");
 }
 
 void save_to_file(const char *path, const char *content) {

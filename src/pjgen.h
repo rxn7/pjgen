@@ -11,8 +11,10 @@
 
 extern char g_cwd[]; /* Declared in pjgen.c */
 extern char *g_proj_name; /* Declared in pjgen.c */
-extern _Bool g_flag_simple; /* Declared in pjgen.c */
+extern int *g_argc_p;
+extern const char **g_argv_p;
 
 void save_to_file(const char *path, const char *content);
 
 #define GEN_PROJECT(lang) void gen_##lang()
+#define FOR_EACH_FLAG() for(unsigned int i=3; i<*g_argc_p; ++i) 

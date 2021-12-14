@@ -4,6 +4,18 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+static bool f_simple = false;
+
+static void check_flags() {
+        FOR_EACH_FLAG() {
+                if(strcmp(g_argv_p[i], "-s") == 0 || strcmp(g_argv_p[i], "--simple") == 0) {
+                        f_simple = true;        
+                } else {
+                        fprintf(stderr, "Unknown flag for C/C++ project: '%s'.\n", g_argv_p[i]);
+                }
+        }
+}
+
 static void save_makefile(const char *compiler, const char *lang, const char *cflags) {
         #define MAKEFILE_SIMPLE \
                 "all:\n" \
@@ -28,7 +40,7 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 
 	char content[4096];
 
-        if(g_flag_simple) {
+        if(f_simple) {
                 sprintf(content, MAKEFILE_SIMPLE, compiler, g_proj_name);
         } else {
                 sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
@@ -56,7 +68,7 @@ static void save_main(bool is_cpp, const char *src_file_name) {
 
         char src_file_path[PATH_SIZE];
 
-        if(g_flag_simple) {
+        if(f_simple) {
                 strcpy(src_file_path, g_cwd);
                 strcat(src_file_path, "/");
                 strcat(src_file_path, src_file_name);
@@ -78,11 +90,13 @@ static void save_main(bool is_cpp, const char *src_file_name) {
 } 
 
 GEN_PROJECT(c) {
+        check_flags();
         save_main(false, "main.c");
         save_makefile("gcc", "c", "-std=gnu99");
 }
 
 GEN_PROJECT(cpp) {
+        check_flags();
         save_main(true, "main.cpp");
         save_makefile("g++", "cpp", "-std=c++17");
 }
