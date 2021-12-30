@@ -41,7 +41,7 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 	char content[4096];
 
         if(f_simple) {
-                sprintf(content, MAKEFILE_SIMPLE, lang, compiler, g_proj_name);
+                sprintf(content, MAKEFILE_SIMPLE, compiler, lang, g_proj_name);
         } else {
                 sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
         }
