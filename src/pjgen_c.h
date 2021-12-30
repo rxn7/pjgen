@@ -19,7 +19,7 @@ static void check_flags() {
 static void save_makefile(const char *compiler, const char *lang, const char *cflags) {
         #define MAKEFILE_SIMPLE \
                 "all:\n" \
-                "\t%s main.c -o %s\n" \
+                "\t%s main.%s -o %s\n" \
 
 	#define MAKEFILE \
 		"SRCS = -c src/*.%s\n" \
@@ -41,7 +41,7 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 	char content[4096];
 
         if(f_simple) {
-                sprintf(content, MAKEFILE_SIMPLE, compiler, g_proj_name);
+                sprintf(content, MAKEFILE_SIMPLE, lang, compiler, g_proj_name);
         } else {
                 sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
         }
