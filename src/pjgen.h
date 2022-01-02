@@ -17,5 +17,4 @@ extern const char **g_argv_p;
 void save_to_file(const char *path, const char *content);
 void print_help();
 
-#define GEN_PROJECT(lang) void gen_##lang()
 #define FOR_EACH_FLAG() for(unsigned int i=3; i<*g_argc_p; ++i) 

@@ -86,13 +86,13 @@ static void save_main(bool is_cpp, const char *src_file_name) {
 	save_to_file(src_file_path, src_file_content);
 } 
 
-GEN_PROJECT(c) {
+void gen_c() {
         check_flags();
         save_main(false, "main.c");
         save_makefile("gcc", "c", "-std=gnu99");
 }
 
-GEN_PROJECT(cpp) {
+void gen_cpp() {
         check_flags();
         save_main(true, "main.cpp");
         save_makefile("g++", "cpp", "-std=c++17");

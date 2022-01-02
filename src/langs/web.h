@@ -2,7 +2,7 @@
 
 #include "pjgen.h"
 
-GEN_PROJECT(web) {
+void gen_web() {
 	#define INDEX_HTML \
 		"<!DOCTYPE html>\n" \
 		"<html>\n" \
