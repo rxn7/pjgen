@@ -72,7 +72,7 @@ void print_help() {
 void save_to_file(const char *path, const char *content) {
         FILE *file = fopen(path, "w");
         if(!file) {
-                printf("Unable to open file '%s'.\n", path);
+                perror("Unable to open file '%s'", path);
                 return;
         }
 
