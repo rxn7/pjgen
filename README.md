@@ -1,5 +1,6 @@
 # pjgen
 Project generator for multiple languages written in c99.
+Any kind of feedback would be much appreciated.
 
 # Supported languages
 * C  
