@@ -35,12 +35,12 @@
 	"clean:\n" \
 	"\trm *.o"
 
-static bool f_simple = false;
+static bool flag_simple = false;
 
 static void check_flags() {
         FOR_EACH_FLAG() {
                 if(strcmp(g_argv_p[i], "-s") == 0 || strcmp(g_argv_p[i], "--simple") == 0) {
-                        f_simple = true;        
+                        flag_simple = true;        
                 } else {
                         fprintf(stderr, "Unknown flag for C/C++ project: '%s'.\n", g_argv_p[i]);
                 }
@@ -50,7 +50,7 @@ static void check_flags() {
 static void save_makefile(const char *compiler, const char *lang, const char *cflags) {
 	/* FIXME: This is terrible */
 	char content[4096];
-        if(f_simple) sprintf(content, MAKEFILE_SIMPLE, compiler, lang, g_proj_name);
+        if(flag_simple) sprintf(content, MAKEFILE_SIMPLE, compiler, lang, g_proj_name);
         else sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
 
 	char path[PATH_SIZE];
@@ -63,7 +63,7 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 static void save_main(bool is_cpp, const char *src_file_name) {
         char src_file_path[PATH_SIZE];
 
-        if(f_simple) {
+	if(flag_simple) {
                 strcpy(src_file_path, g_root_dir);
                 strcat(src_file_path, "/");
                 strcat(src_file_path, src_file_name);
