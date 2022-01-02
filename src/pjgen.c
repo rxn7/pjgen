@@ -4,7 +4,6 @@
 #include "langs/web.h"
 
 static void create_root_folder();
-static void initialize();
 
 int *g_argc_p;
 const char **g_argv_p;
@@ -23,23 +22,19 @@ int main(int argc, const char **argv) {
         
         char *lang = (char *) argv[1];
         if(strcmp(lang, "c") == 0) {
-		initialize();
+		create_root_folder();
 		gen_c();
 	} else if(strcmp(lang, "cpp") == 0 || strcmp(lang, "c++") == 0 || strcmp(lang, "cc") == 0) {
-		initialize();
+		create_root_folder();
 		gen_cpp();
 	} else if(strcmp(lang, "web") == 0 || strcmp(lang, "html") == 0 || strcmp(lang, "css") == 0) { 
-		initialize();
+		create_root_folder();
 		gen_web();
 	} else {
 		printf("Pjgen doesn't support language `%s`, type `pjgen --help` for help.\n", lang);
 	}
 
 	return 0;
-}
-
-static void initialize() {
-        create_root_folder();
 }
 
 static void create_root_folder() {
