@@ -5,6 +5,7 @@ Project generator for multiple languages written in c99.
 * C  
 * C++  
 * HTML/CSS  
+* Python
 * More coming soon...  
 
 # Usage
