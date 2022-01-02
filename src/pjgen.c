@@ -2,6 +2,7 @@
 
 #include "langs/cpp_c.h"
 #include "langs/web.h"
+#include "langs/py.h"
 
 static void create_root_folder();
 
@@ -35,6 +36,9 @@ int main(int argc, const char **argv) {
 	} else if(strcmp(lang, "web") == 0 || strcmp(lang, "html") == 0 || strcmp(lang, "css") == 0) { 
 		create_root_folder();
 		gen_web();
+	} else if(strcmp(lang, "py") == 0 || strcmp(lang, "python") == 0) {
+		create_root_folder();		
+		gen_py();
 	} else {
 		printf("Pjgen doesn't support language `%s`, type `pjgen --help` for help.\n", lang);
 	}
@@ -63,7 +67,11 @@ static void create_root_folder() {
 
 void print_help() {
 	puts("usage: pjgen <language tag> <project name> <(optional) flags>");
-	puts("languages (name[tags]): C[c], C++[cc, cpp, c++], HTML/CSS[web, html, css]");
+	puts("languages (name[tags]):");
+	puts("\tC[c]");
+	puts("\tC++[cc,cpp,c++]");
+	puts("\tHTML/CSS[web,html,css]");
+	puts("\tPython[py,python]");
 	puts("flags:");
 	puts("\tC/C++:");
 	puts("\t\t--simple, -s: Doesn't create the src directory and makes the Makefile much simpler.");

@@ -4,6 +4,39 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#define MAIN_C \
+	"#include <stdio.h>\n\n" \
+	"int main(int argc, const char **argv) {\n" \
+	"\tprintf(\"Hello, World!\");\n" \
+	"}"
+
+#define MAIN_CPP \
+	"#include <iostream>\n\n" \
+	"int main(int argc, const char **argv) {\n" \
+	"\tstd::cout << \"Hello, World!\" << std::endl;\n" \
+	"}"
+
+#define MAKEFILE_SIMPLE \
+	"all:\n" \
+	"\t%s main.%s -o %s\n" \
+
+#define MAKEFILE \
+	"SRCS = -c src/*.%s\n" \
+	"HDRS = -Isrc\n" \
+	"CFLAGS = %s\n" \
+	"OBJS = main.o\n" \
+	"\n" \
+	"all: compile link clean\n" \
+	"\n" \
+	"compile:\n" \
+	"\t%s $(SRCS) $(HDRS) $(CFLAGS)\n" \
+	"\n" \
+	"link:\n" \
+	"\t%s $(OBJS) $(LIBS) -o %s\n" \
+	"\n" \
+	"clean:\n" \
+	"\trm *.o"
+
 static bool f_simple = false;
 
 static void check_flags() {
@@ -18,27 +51,6 @@ static void check_flags() {
 
 static void save_makefile(const char *compiler, const char *lang, const char *cflags) {
 	/* FIXME: This is terrible */
-        #define MAKEFILE_SIMPLE \
-                "all:\n" \
-                "\t%s main.%s -o %s\n" \
-
-	#define MAKEFILE \
-		"SRCS = -c src/*.%s\n" \
-		"HDRS = -Isrc\n" \
-		"CFLAGS = %s\n" \
-		"OBJS = main.o\n" \
-		"\n" \
-		"all: compile link clean\n" \
-		"\n" \
-		"compile:\n" \
-		"\t%s $(SRCS) $(HDRS) $(CFLAGS)\n" \
-		"\n" \
-		"link:\n" \
-		"\t%s $(OBJS) $(LIBS) -o %s\n" \
-		"\n" \
-		"clean:\n" \
-		"\trm *.o"
-
 	char content[4096];
         if(f_simple) sprintf(content, MAKEFILE_SIMPLE, compiler, lang, g_proj_name);
         else sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
@@ -51,18 +63,6 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 }
 
 static void save_main(bool is_cpp, const char *src_file_name) {
-	#define MAIN_C \
-		"#include <stdio.h>\n\n" \
-		"int main(int argc, const char **argv) {\n" \
-		"\tprintf(\"Hello, World!\");\n" \
-		"}"
-
-	#define MAIN_CPP \
-		"#include <iostream>\n\n" \
-		"int main(int argc, const char **argv) {\n" \
-		"\tstd::cout << \"Hello, World!\" << std::endl;\n" \
-		"}"
-
         char src_file_path[PATH_SIZE];
 
         if(f_simple) {
