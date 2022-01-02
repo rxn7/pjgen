@@ -1,6 +1,5 @@
 # pjgen
 Project generator for multiple languages written in c99.
-![gif](pjgen.gif)
 
 # Supported languages
 * C  
