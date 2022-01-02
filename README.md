@@ -21,4 +21,4 @@ pjgen \<lang\> \<proj name\> \<optional flags\>
 * ```make install```
 
 # License
-Do What The Fuck You Want To Public License
+Do What The Fuck You Want To Public License (see [LICENSE](./LICENSE))
