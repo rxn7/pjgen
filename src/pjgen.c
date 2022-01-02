@@ -2,7 +2,7 @@
 #include "pjgen_c.h"
 #include "pjgen_web.h"
 
-char g_cwd[PATH_SIZE];
+char *g_root_dir;
 char *g_proj_name;
 int *g_argc_p;
 const char **g_argv_p;
@@ -22,9 +22,8 @@ int main(int argc, const char **argv) {
         g_argc_p = &argc;
         g_argv_p = argv;
 
-        getcwd(g_cwd, PATH_SIZE);
-
         const char *lang = argv[1];
+	g_root_dir = malloc(PATH_SIZE);
 
         g_proj_name = malloc(sizeof(char) * strlen(argv[2]) + 1);
         strcpy(g_proj_name, argv[2]);
@@ -34,13 +33,15 @@ int main(int argc, const char **argv) {
         if(strcmp(lang, "c") == 0)              gen_c();
         else if(strcmp(lang, "cpp") == 0)       gen_cpp();
         else if(strcmp(lang, "web") == 0)       gen_web();
+
+	free(g_root_dir);
         
         return 0;
 }
 
 static void create_root_folder() {
         char loc[PATH_SIZE];
-        strcpy(loc, g_cwd);
+        strcpy(loc, getenv("PWD"));
         strcat(loc, "/");
         strcat(loc, g_proj_name);
 
@@ -54,7 +55,7 @@ static void create_root_folder() {
         printf("Project root location: %s\n", loc);
         mkdir(loc, 0700);
         
-        strcpy(g_cwd, loc);
+        strcpy(g_root_dir, loc);
 }
 
 static void print_help() {

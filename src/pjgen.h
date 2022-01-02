@@ -9,8 +9,8 @@
 
 #define PATH_SIZE 4096
 
-extern char g_cwd[]; /* Declared in pjgen.c */
-extern char *g_proj_name; /* Declared in pjgen.c */
+extern char *g_root_dir;
+extern char *g_proj_name;
 extern int *g_argc_p;
 extern const char **g_argv_p;
 

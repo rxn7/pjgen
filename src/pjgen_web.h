@@ -17,11 +17,11 @@ GEN_PROJECT(web) {
 		"</html>"
 
 	char html_path[PATH_SIZE];
-        strcpy(html_path, g_cwd);
+        strcpy(html_path, g_root_dir);
         strcat(html_path, "/index.html");
 
 	char css_path[PATH_SIZE];
-        strcpy(css_path, g_cwd);
+        strcpy(css_path, g_root_dir);
         strcat(css_path, "/style.css");
 
 	char html_src[4096];
