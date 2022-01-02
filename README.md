@@ -19,3 +19,6 @@ pjgen \<lang\> \<proj name\> \<optional flags\>
 * ```git clone http://github.com/rotth/pjgen.git```  
 * ```cd pjgen```  
 * ```make install```
+
+# License
+Do What The Fuck You Want To Public License
