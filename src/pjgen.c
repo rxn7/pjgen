@@ -11,16 +11,21 @@ const char *g_proj_name;
 char g_root_dir[PATH_SIZE];
 
 int main(int argc, const char **argv) {
-        if(argc < 3) {
-                print_help();
+        if(argc < 2) {
+		printf("Invalid parameters, tyte pjgen --help for help.");
                 return 1;
         }
+	
+	if(strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0) {
+		print_help();
+		return 0;
+	}
 
         g_argc_p = &argc;
         g_argv_p = argv;
         g_proj_name = argv[2];
-        
         char *lang = (char *) argv[1];
+        
         if(strcmp(lang, "c") == 0) {
 		create_root_folder();
 		gen_c();
