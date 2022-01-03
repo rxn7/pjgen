@@ -4,6 +4,8 @@
 #include "langs/web.h"
 #include "langs/py.h"
 
+#define STRCMP(s1,s2) strcmp(s1,s2) == 0
+
 static void create_root_folder();
 
 int *g_argc_p;
@@ -27,16 +29,16 @@ int main(int argc, const char **argv) {
         g_proj_name = argv[2];
         char *lang = (char *) argv[1];
         
-        if(strcmp(lang, "c") == 0) {
+        if(STRCMP(lang, "c")) {
 		create_root_folder();
 		gen_c();
-	} else if(strcmp(lang, "cpp") == 0 || strcmp(lang, "c++") == 0 || strcmp(lang, "cc") == 0) {
+	} else if(STRCMP(lang, "cpp") || STRCMP(lang, "c++") || STRCMP(lang, "cc")) {
 		create_root_folder();
 		gen_cpp();
-	} else if(strcmp(lang, "web") == 0 || strcmp(lang, "html") == 0 || strcmp(lang, "css") == 0) { 
+	} else if(STRCMP(lang, "web") || STRCMP(lang, "html") || STRCMP(lang, "css")) { 
 		create_root_folder();
 		gen_web();
-	} else if(strcmp(lang, "py") == 0 || strcmp(lang, "python") == 0) {
+	} else if(STRCMP(lang, "py") || STRCMP(lang, "python")) {
 		create_root_folder();		
 		gen_py();
 	} else {
