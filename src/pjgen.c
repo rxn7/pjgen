@@ -13,7 +13,7 @@ char g_root_dir[PATH_SIZE];
 
 int main(int argc, const char **argv) {
         if(argc < 2) {
-		printf("Invalid parameters, type `pjgen --help` for help.");
+		printf("Invalid parameters, type `pjgen --help` for help.\n");
                 return 1;
         }
 	
