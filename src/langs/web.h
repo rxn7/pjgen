@@ -8,6 +8,7 @@ void gen_web() {
 		"<html>\n" \
 		"<head>\n" \
 		"	<link rel=\"stylesheet\" href=\"style.css\">\n" \
+		"	<meta name=\"vierport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no\">\n" \
 		"	<meta charset=\"UTF-8\">\n" \
 		"	<title>%s</title>\n" \
 		"</head>\n" \
