@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pjgen.h"
+#include "../pjgen.h"
 
 #define MAIN_C \
 	"#include <stdio.h>\n\n" \
