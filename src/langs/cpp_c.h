@@ -51,7 +51,7 @@ static void save_makefile(const char *compiler, const char *lang, const char *cf
 	/* FIXME: This is terrible */
 	char content[4096];
         if(flag_simple) sprintf(content, MAKEFILE_SIMPLE, compiler, lang, g_proj_name);
-        else sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
+	else sprintf(content, MAKEFILE, lang, cflags, compiler, compiler, g_proj_name);
 
 	char path[PATH_SIZE];
         strcpy(path, g_root_dir); 
