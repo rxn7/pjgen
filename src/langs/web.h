@@ -11,6 +11,7 @@ void gen_web() {
 		"	<meta name=\"vierport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no\">\n" \
 		"	<meta charset=\"UTF-8\">\n" \
 		"	<title>%s</title>\n" \
+		"	<script src=\"script.js\"></script>\n" \
 		"</head>\n" \
 		"<body>\n" \
 		"	\n" \
@@ -25,9 +26,14 @@ void gen_web() {
         strcpy(css_path, g_root_dir);
         strcat(css_path, "/style.css");
 
+	char js_path[PATH_SIZE];
+	strcpy(js_path, g_root_dir);
+	strcat(js_path, "/script.js");
+
 	char html_src[4096];
 	sprintf(html_src, INDEX_HTML, g_proj_name);
 
 	save_to_file(html_path, html_src);
 	save_to_file(css_path, "");
+	save_to_file(js_path, "");
 }
