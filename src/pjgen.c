@@ -4,6 +4,8 @@
 #include "langs/web.h"
 #include "langs/py.h"
 
+#define lang_cmp(s) (strcmp(lang, s) == 0)
+
 static void create_root_folder();
 
 int *g_argc_p;
@@ -26,8 +28,6 @@ int main(int argc, const char **argv) {
         g_argv_p = argv;
         g_proj_name = argv[2];
         char *lang = (char *) argv[1];
-
-	#define lang_cmp(s) strcmp(lang, s) == 0
 
         if(lang_cmp("c")) {
 		create_root_folder();
@@ -56,6 +56,11 @@ static void create_root_folder() {
         strcat(loc, g_proj_name);
 
         DIR *dir = opendir(loc);
+	if(!dir) {
+		printf("Couldn't create directory '%s'!\n", loc);
+		exit(EXIT_FAILURE);
+	}
+
         closedir(dir);
         if(dir) {
                 printf("Directory '%s' already exists!\n", loc);
