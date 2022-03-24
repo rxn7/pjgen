@@ -3,7 +3,6 @@
 #include "langs/cpp_c.h"
 #include "langs/web.h"
 #include "langs/py.h"
-#include "langs/rust.h"
 
 static void create_root_folder();
 
@@ -42,9 +41,6 @@ int main(int argc, const char **argv) {
 	} else if(lang_cmp("py") || lang_cmp("python")) {
 		create_root_folder();		
 		gen_py();
-	} else if(lang_cmp("rust") || lang_cmp("rs")) {
-		create_root_folder();
-		gen_rust();
 	} else {
 		printf("Pjgen doesn't support language `%s`, type `pjgen --help` for help.\n", lang);
 		return 1;
