@@ -1,5 +1,14 @@
-all:
-	gcc src/pjgen.c -Isrc -std=gnu99 -o pjgen
+SRC := src/*.cc
+OUT := ./pjgen
+OBJ := pjgen.o
+
+all: compile link
+
+compile:
+	g++ -c $(SRC) -Isrc -std=c++20
+
+link:
+	g++ $(OBJ) -o $(OUT)
 
 install:
 	make
