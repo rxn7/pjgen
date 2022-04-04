@@ -1,5 +1,5 @@
 # pjgen
-Project generator for multiple languages written in c99.
+Project generator for multiple languages written in C++20.
 Any kind of feedback would be much appreciated.
 
 # Supported languages
