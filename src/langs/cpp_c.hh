@@ -88,10 +88,12 @@ void gen_c() {
         check_flags();
         save_main(false, "main.c");
         save_makefile("gcc", "c", "-std=gnu99");
+	puts("Successfully generated a C project.");
 }
 
 void gen_cpp() {
         check_flags();
         save_main(true, "main.cpp");
         save_makefile("g++", "cpp", "-std=c++17");
+	puts("Successfully generated a C++ project.");
 }

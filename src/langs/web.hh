@@ -29,4 +29,6 @@ void gen_web() {
 	std::string blank = "\n";
 	save_to_file(css_path, blank);
 	save_to_file(js_path, blank);
+
+	puts("Successfully generated a web project.");
 }

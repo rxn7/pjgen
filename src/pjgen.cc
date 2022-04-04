@@ -3,6 +3,7 @@
 #include "langs/web.hh"
 #include "langs/py.hh"
 
+#include <filesystem>
 #include <sstream>
 
 #define lang_cmp(s) (strcmp(lang, s) == 0)

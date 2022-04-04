@@ -8,4 +8,6 @@ void gen_py() {
 
 	std::string content = MAIN_PY;
 	save_to_file(path, content);
+
+	puts("Successfully generated a python project.");
 }
