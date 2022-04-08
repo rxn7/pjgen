@@ -19,10 +19,10 @@
 	"\t&CC& main.&LANG& -o &OUT&\n" \
 
 #define MAKEFILE \
-	"SRCS = -c src/*.&LANG&\n" \
-	"HDRS = -Isrc\n" \
-	"CFLAGS = &CFLAGS&\n" \
-	"OBJS = main.o\n" \
+	"SRCS := -c src/*.&LANG&\n" \
+	"HDRS := -Isrc\n" \
+	"CFLAGS := &CFLAGS&\n" \
+	"OBJS := main.o\n" \
 	"\n" \
 	"all: compile link clean\n" \
 	"\n" \
@@ -30,7 +30,7 @@
 	"\t&CC& $(SRCS) $(HDRS) $(CFLAGS)\n" \
 	"\n" \
 	"link:\n" \
-	"\t&CC& $(OBJS) $(LIBS) -o &OUT&\n" \
+	"\t&CC& $(OBJS) $(LDFLAGS) -o &OUT&\n" \
 	"\n" \
 	"clean:\n" \
 	"\trm *.o"
@@ -48,7 +48,6 @@ static void check_flags() {
 }
 
 static void save_makefile(const char *compiler, const char *lang, const char *cflags) {
-	/* FIXME: This is terrible */
 	std::string content;
 
 	if(flag_simple) {
