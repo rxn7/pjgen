@@ -3,13 +3,13 @@
 #include <fstream>
 
 std::string pjgen::rootDirPath;
-std::vector<std::string> pjgen::flags;
+std::vector<std::string_view> pjgen::flags;
 
 void pjgen::Init(int argc, const char **argv) {
 	for(int i=3; i<argc; ++i) {
-		std::string flag = argv[i];
+		std::string_view flag = argv[i];
 		if(flag.starts_with("--")) {
-			pjgen::flags.push_back(flag.substr(2));
+			pjgen::flags.push_back({flag.begin() + 2, flag.length() - 2});
 		}
 	}
 }

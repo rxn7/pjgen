@@ -6,7 +6,7 @@ constexpr std::string_view CTemplate::GetName() const {
 
 bool CTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
-	for(std::string flag : pjgen::flags) {
+	for(std::string_view flag : pjgen::flags) {
 		if(flag == "simple") {
 			flagSimple = true;
 			break;

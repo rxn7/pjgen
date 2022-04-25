@@ -1,10 +1,19 @@
 #include "WebTemplate.h"
+#include "Pjgen.h"
 
 constexpr std::string_view WebTemplate::GetName() const {
 	return "Web";
 }
 
 bool WebTemplate::_Generate(std::string &projectName) const {
+	bool flagJs = false;
+	for(std::string_view flag : pjgen::flags) {
+		if(flag == "js") {
+			flagJs = true;
+			break;
+		}
+	}
+
 	std::string htmlContent = 
 R"(<!DOCTYPE html>
 <html>
@@ -16,7 +25,7 @@ R"(<!DOCTYPE html>
 </head>
 <body>
 
-</body>
+</body>&JS&
 </html>)";
 
 	std::string cssContent = 
@@ -26,6 +35,13 @@ R"(body {
 
 	std::string htmlPath = pjgen::rootDirPath + "/index.html";
 	pjgen::ReplaceAll(htmlContent, htmlContent, "&TITLE&", projectName);
+	if(flagJs) {
+		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "\n<script src=\"index.js\"></script>");
+		pjgen::WriteToFile(pjgen::rootDirPath + "/index.js", "");
+	} else {
+		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "");
+	}
+
 	if(!pjgen::WriteToFile(htmlPath, htmlContent)) {
 		return false;
 	}

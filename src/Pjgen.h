@@ -13,7 +13,7 @@
 
 namespace pjgen {
 	extern std::string rootDirPath;
-	extern std::vector<std::string> flags;
+	extern std::vector<std::string_view> flags;
 
 	void PrintHelp();
 	void Init(int argc, const char **argv);
