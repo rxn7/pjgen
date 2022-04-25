@@ -13,13 +13,12 @@ bool CppTemplate::_Generate(std::string &projectName) const {
 		}
 	}
 
-	std::string mainFileContent = R"(
-#include <iostream>
-
+	std::string mainFileContent = 
+R"(#include <iostream>
 int main(int argc, const char **argv) {
 	std::cout << "Hello, World!";
 }
-	)";
+)";
 
 	std::string mainFilePath;
 	std::string makefilePath = pjgen::rootDirPath + "/Makefile";
@@ -29,8 +28,8 @@ int main(int argc, const char **argv) {
 		makefileContent = "g++ main.cpp -o &OUT&";
 	} else {
 		mainFilePath = pjgen::rootDirPath + "/src/main.cpp";
-		makefileContent = R"(
-OUT := &OUT&
+		makefileContent = 
+R"(OUT := &OUT&
 CC := g++
 DIR_SRC := src
 INC := -Isrc
@@ -49,8 +48,7 @@ $(OUT): $(OBJ)
 	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
 
 clean:
-	rm *.o"
-		)";
+	rm *.o")";
 
 		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {
 			return false;

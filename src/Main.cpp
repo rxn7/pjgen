@@ -33,13 +33,11 @@ int main(int argc, const char **argv) {
 	std::string language = argv[1];
 	std::transform(language.begin(), language.end(), language.begin(), tolower);
 
-	for(auto &pair : templates) {
-		std::list<std::string> &aliases = pair.first;
-
+	for(const auto &[aliases, templ] : templates) {
 		for(std::string alias : aliases) {
 			if(language == alias) {
 				pjgen::CreateRootDir(projectName);
-				if(pair.second->Generate(projectName)) {
+				if(templ->Generate(projectName)) {
 					ColoredPrintLine(GREEN, "Project '" << projectName << "' successfully generated!");
 					exit(EXIT_SUCCESS);
 				} else {
