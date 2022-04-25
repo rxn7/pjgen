@@ -1,23 +1,25 @@
-SRC := -c src/*.cpp -c src/templates/*.cpp
 OUT := ./pjgen
-OBJ := 	Main.o \
-	Pjgen.o \
-	ProjectTemplate.o \
-	CTemplate.o \
-	CppTemplate.o \
-	WebTemplate.o \
-	PythonTemplate.o
 
-all: compile link clean
+DIR_SRC += ./src
+DIR_SRC += ./src/templates
 
-compile:
-	g++ $(SRC) -Isrc -std=c++20
+CFLAGS := -std=c++20
 
-link:
-	g++ $(OBJ) -o $(OUT)
+SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
+OBJ := $(patsubst %.cpp, %.o, $(SRC))
+
+.PHONY: all
+	
+all: $(OBJ) $(OUT)
+
+%.o: %.cpp
+	g++ $(CFLAGS) -Isrc -c $< -o $@
+
+$(OUT): $(OBJ)
+	g++ $(CFLAGS) $(OBJ) -o $@
 
 clean:
-	rm *.o
+	rm -r $(OUT) $(OBJ)
 
 install:
 	make
