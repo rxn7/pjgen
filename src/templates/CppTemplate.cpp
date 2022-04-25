@@ -15,6 +15,7 @@ bool CppTemplate::_Generate(std::string &projectName) const {
 
 	std::string mainFileContent = 
 R"(#include <iostream>
+
 int main(int argc, const char **argv) {
 	std::cout << "Hello, World!";
 }
@@ -48,7 +49,7 @@ $(OUT): $(OBJ)
 	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
 
 clean:
-	rm *.o")";
+	rm $(OBJ) $(OUT))";
 
 		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {
 			return false;
