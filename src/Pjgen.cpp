@@ -23,7 +23,7 @@ void pjgen::CreateRootDir(const std::string &projectName) {
 	}
 
 	std::filesystem::create_directory(path);
-	std::cout << "Root directory: " << path << std::endl;
+	std::cout << "Root directory: " << path << "\n";
 	rootDirPath = path.string();
 }
 

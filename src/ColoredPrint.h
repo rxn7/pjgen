@@ -14,7 +14,7 @@
 // TODO: Windows colored output
 
 #if __has_include(<unistd.h>)
-	#define ColoredPrintLine(color, msg) std::cout << color << msg << WHITE << std::endl;
+	#define ColoredPrintLine(color, msg) std::cout << color << msg << WHITE << "\n";
 #else
-	#define ColoredPrintLine(color, msg) std::cout << msg << std::endl;
+	#define ColoredPrintLine(color, msg) std::cout << msg << "\n";
 #endif
