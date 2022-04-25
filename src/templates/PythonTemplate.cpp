@@ -1,5 +1,4 @@
 #include "PythonTemplate.h"
-#include "Pjgen.h"
 
 #define MAIN_PY_CONTENT "print(\"hello world\")"
 

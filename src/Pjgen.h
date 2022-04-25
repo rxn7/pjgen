@@ -2,8 +2,14 @@
 
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <filesystem>
 #include <vector>
+#include <algorithm>
+#include <list>
+
+#include "ProjectTemplate.h"
+#include "ColoredPrint.h"
 
 namespace pjgen {
 	extern std::string rootDirPath;

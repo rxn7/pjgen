@@ -1,5 +1,4 @@
 #include "WebTemplate.h"
-#include "Pjgen.h"
 
 #define INDEX_HTML_CONTENT \
 	"<!DOCTYPE html>\n" \

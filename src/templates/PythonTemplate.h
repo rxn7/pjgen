@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Pjgen.h"
-#include "ProjectTemplate.h"
 
 class PythonTemplate : public ProjectTemplate {
 public:

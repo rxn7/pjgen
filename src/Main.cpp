@@ -1,10 +1,4 @@
 #include "Pjgen.h"
-#include "ProjectTemplate.h"
-#include "ColoredPrint.h"
-
-#include <string.h>
-#include <algorithm>
-#include <list>
 
 #include "templates/PythonTemplate.h"
 #include "templates/WebTemplate.h"

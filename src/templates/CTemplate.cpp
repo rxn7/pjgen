@@ -1,5 +1,4 @@
 #include "CTemplate.h"
-#include "Pjgen.h"
 
 #define MAIN_C_CONTENT \
 	"#include <stdio.h>\n\n" \

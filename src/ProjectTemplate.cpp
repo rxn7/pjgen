@@ -1,5 +1,4 @@
 #include "ProjectTemplate.h"
-#include "ColoredPrint.h"
 
 ProjectTemplate::ProjectTemplate(std::string templateName) 
 : m_TemplateName(templateName) { }

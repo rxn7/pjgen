@@ -1,5 +1,4 @@
 #include "CppTemplate.h"
-#include "Pjgen.h"
 
 #define MAIN_CPP_CONTENT \
 	"#include <iostream>\n\n" \
