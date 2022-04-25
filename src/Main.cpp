@@ -7,7 +7,7 @@
 
 // TODO: Decide whether std::list or std::vector should be used here.
 std::pair<std::list<std::string>, std::unique_ptr<ProjectTemplate>> templates[] {
-	{{"c"}, std::unique_ptr<CTemplate>()},
+	{{"c"}, std::make_unique<CTemplate>()},
 	{{"cpp", "cc" "c++"}, std::make_unique<CppTemplate>()},
 	{{"web", "html", "css"}, std::make_unique<WebTemplate>()},
 	{{"py", "python"}, std::make_unique<PythonTemplate>()},
