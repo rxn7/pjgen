@@ -51,7 +51,7 @@ void pjgen::PrintHelp() {
 	puts("\tPython[py,python]");
 	puts("Flags:");
 	puts("\tC/C++:");
-	puts("\t\t--simple, -s: Doesn't create the src directory and makes the Makefile much simpler.");
+	puts("\t\t--simple: Good for single-file projects.");
 }
 
 void pjgen::ReplaceAll(std::string &src, std::string toReplace, std::string replaceWith) {
