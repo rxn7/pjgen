@@ -1,14 +1,22 @@
-SRC := src/*.cc
+SRC := -c src/*.cpp -c src/templates/*.cpp
 OUT := ./pjgen
-OBJ := pjgen.o
+OBJ := 	Main.o \
+	Pjgen.o \
+	ProjectTemplate.o \
+	CTemplate.o \
+	WebTemplate.o \
+	PythonTemplate.o
 
-all: compile link
+all: compile link clean
 
 compile:
-	g++ -c $(SRC) -Isrc -std=c++20
+	g++ $(SRC) -Isrc -std=c++20
 
 link:
 	g++ $(OBJ) -o $(OUT)
+
+clean:
+	rm *.o
 
 install:
 	make
