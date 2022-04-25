@@ -24,7 +24,7 @@ int main(int argc, const char **argv) {
 	std::string makefileContent;
 	if(flagSimple) {
 		mainFilePath = pjgen::rootDirPath + "/main.c";
-		makefileContent = "gcc main.c -o &OUT&";
+		makefileContent = "all:\n\tgcc main.c -o &OUT&";
 	} else {
 		mainFilePath = pjgen::rootDirPath + "/src/main.c";
 		makefileContent = 

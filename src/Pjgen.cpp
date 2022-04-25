@@ -19,7 +19,7 @@ void pjgen::CreateRootDir(std::string &projectName) {
 	std::filesystem::path path = std::string(getenv("PWD")) + "/" + projectName;
 
 	if(std::filesystem::exists(path)) {
-		ColoredPrintLine(RED, "Directory " << path << " already exists!");
+		ColoredPrintLine(RED, "Directory " << path.string() << " already exists!");
 		exit(EXIT_FAILURE);
 	}
 
