@@ -17,6 +17,3 @@ type ```pjgen --help``` for more help
 * ```git clone http://github.com/rotth/pjgen.git```  
 * ```cd pjgen```  
 * ```make install```
-
-# License
-Do What The Fuck You Want To Public License (see [LICENSE](./LICENSE))
