@@ -6,7 +6,7 @@ std::string pjgen::rootDirPath;
 std::vector<std::string> pjgen::flags;
 
 void pjgen::Init(int argc, const char **argv) {
-	for(int i=3; i<argc-1; ++i) {
+	for(int i=3; i<argc; ++i) {
 		std::string flag = argv[i];
 		if(flag.starts_with("--")) {
 			pjgen::flags.push_back(flag.substr(2));

@@ -1,36 +1,36 @@
-#include "CTemplate.h"
+#include "CppTemplate.h"
 #include "Pjgen.h"
 
-#define MAIN_C_CONTENT \
-	"#include <stdio.h>\n\n" \
+#define MAIN_CPP_CONTENT \
+	"#include <iostream>\n\n" \
 	"int main(int argc, const char **argv) {\n" \
-	"\tprintf(\"Hello, World!\");\n" \
+	"	std::cout << \"Hello, World!\";\n" \
 	"}"
 
 #define MAKEFILE_SIMPLE \
 	"all:\n" \
-	"\tgcc main.c -o &OUT&\n" \
+	"\tg++ main.cpp -o &OUT&\n" \
 
 #define MAKEFILE \
-	"SRCS := -c src/*.c\n" \
+	"SRCS := -c src/*.cpp\n" \
 	"HDRS := -Isrc\n" \
-	"CFLAGS := -std=gnu99\n" \
+	"CFLAGS := -std=c++17\n" \
 	"OBJS := main.o\n" \
 	"\n" \
 	"all: compile link clean\n" \
 	"\n" \
 	"compile:\n" \
-	"\tgcc $(SRCS) $(HDRS) $(CFLAGS)\n" \
+	"\tg++ $(SRCS) $(HDRS) $(CFLAGS)\n" \
 	"\n" \
 	"link:\n" \
-	"\tgcc $(OBJS) $(LDFLAGS) -o &OUT&\n" \
+	"\tg++ $(OBJS) $(LDFLAGS) -o &OUT&\n" \
 	"\n" \
 	"clean:\n" \
 	"\trm *.o"
 
-CTemplate::CTemplate() : ProjectTemplate("C") { }
+CppTemplate::CppTemplate() : ProjectTemplate("C++") { }
 
-bool CTemplate::_Generate(std::string &projectName) {
+bool CppTemplate::_Generate(std::string &projectName) {
 	bool flagSimple = false;
 	for(std::string flag : pjgen::flags) {
 		if(flag == "simple") {
@@ -39,15 +39,15 @@ bool CTemplate::_Generate(std::string &projectName) {
 		}
 	}
 
-	std::string mainFileContent = MAIN_C_CONTENT;
+	std::string mainFileContent = MAIN_CPP_CONTENT;
 	std::string mainFilePath;
 	std::string makefilePath = pjgen::rootDirPath + "/Makefile";
 	std::string makefileContent;
 	if(flagSimple) {
-		mainFilePath = pjgen::rootDirPath + "/main.c";
+		mainFilePath = pjgen::rootDirPath + "/main.cpp";
 		makefileContent = MAKEFILE_SIMPLE;
 	} else {
-		mainFilePath = pjgen::rootDirPath + "/src/main.c";
+		mainFilePath = pjgen::rootDirPath + "/src/main.cpp";
 		makefileContent = MAKEFILE;
 
 		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {

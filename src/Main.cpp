@@ -6,13 +6,12 @@
 #include <cstdlib>
 #include <filesystem>
 #include <sstream>
-#include <unordered_map>
 #include <algorithm>
 
 #include "templates/PythonTemplate.h"
 #include "templates/WebTemplate.h"
 #include "templates/CTemplate.h"
-// #include "templates/CppTemplate.h"
+#include "templates/CppTemplate.h"
 
 int main(int argc, const char **argv) {
         if(argc < 2) {
@@ -34,7 +33,7 @@ int main(int argc, const char **argv) {
 	std::string projectName = argv[2];
 
 	if(language == "c") projectTemplate = new CTemplate();
-	// else if(language == "cpp" || language == "cc" || language == "c++") projectTemplate = new CppTemplate();
+	else if(language == "cpp" || language == "cc" || language == "c++") projectTemplate = new CppTemplate();
 	else if(language == "web" || language == "html" || language == "js") projectTemplate = new WebTemplate();
 	else if(language == "py" || language == "python") projectTemplate = new PythonTemplate();
 

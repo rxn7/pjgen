@@ -4,6 +4,7 @@ OBJ := 	Main.o \
 	Pjgen.o \
 	ProjectTemplate.o \
 	CTemplate.o \
+	CppTemplate.o \
 	WebTemplate.o \
 	PythonTemplate.o
 
