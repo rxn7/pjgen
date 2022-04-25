@@ -11,6 +11,7 @@
 #include "templates/CTemplate.h"
 #include "templates/CppTemplate.h"
 
+// TODO: Decide whether std::list and std::vector should be used here.
 std::pair<std::list<std::string>, ProjectTemplate*> templates[] {
 	{{"c"}, new CTemplate()},
 	{{"cpp", "cc" "c++"}, new CppTemplate()},
