@@ -4,6 +4,7 @@
 
 std::string pjgen::rootDirPath;
 std::vector<std::string> pjgen::flags;
+std::string pjgen::selectedTemplateName;
 
 void pjgen::Init(int argc, const char **argv) {
 	for(int i=3; i<argc; ++i) {

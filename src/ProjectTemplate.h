@@ -4,12 +4,9 @@
 
 class ProjectTemplate {
 public:
-	virtual ~ProjectTemplate();
-	bool Generate(std::string &name);
+	virtual constexpr std::string_view GetName() const = 0;
+	bool Generate(std::string &name) const;
 
 protected:
-	virtual bool _Generate(std::string &name);
-	ProjectTemplate(std::string templateName);
-
-	std::string m_TemplateName;
+	virtual bool _Generate(std::string &name) const = 0;
 };

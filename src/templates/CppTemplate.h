@@ -4,6 +4,8 @@
 
 class CppTemplate : public ProjectTemplate {
 public:
-	CppTemplate();
-	virtual bool _Generate(std::string &projectName) override;
+	virtual constexpr std::string_view GetName() const override;
+
+protected:
+	virtual bool _Generate(std::string &projectName) const override;
 };

@@ -14,6 +14,7 @@
 namespace pjgen {
 	extern std::string rootDirPath;
 	extern std::vector<std::string> flags;
+	extern std::string selectedTemplateName;
 
 	void Init(int argc, const char **argv);
 	void CreateRootDir(std::string &projectName);

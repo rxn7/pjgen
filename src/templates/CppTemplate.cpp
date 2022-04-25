@@ -1,35 +1,10 @@
 #include "CppTemplate.h"
 
-#define MAIN_CPP_CONTENT \
-	"#include <iostream>\n\n" \
-	"int main(int argc, const char **argv) {\n" \
-	"	std::cout << \"Hello, World!\";\n" \
-	"}"
+constexpr std::string_view CppTemplate::GetName() const {
+	return "C++";
+}
 
-#define MAKEFILE_SIMPLE \
-	"all:\n" \
-	"\tg++ main.cpp -o &OUT&\n" \
-
-#define MAKEFILE \
-	"SRCS := -c src/*.cpp\n" \
-	"HDRS := -Isrc\n" \
-	"CFLAGS := -std=c++17\n" \
-	"OBJS := main.o\n" \
-	"\n" \
-	"all: compile link clean\n" \
-	"\n" \
-	"compile:\n" \
-	"\tg++ $(SRCS) $(HDRS) $(CFLAGS)\n" \
-	"\n" \
-	"link:\n" \
-	"\tg++ $(OBJS) $(LDFLAGS) -o &OUT&\n" \
-	"\n" \
-	"clean:\n" \
-	"\trm *.o"
-
-CppTemplate::CppTemplate() : ProjectTemplate("C++") { }
-
-bool CppTemplate::_Generate(std::string &projectName) {
+bool CppTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
 	for(std::string flag : pjgen::flags) {
 		if(flag == "simple") {
@@ -38,16 +13,44 @@ bool CppTemplate::_Generate(std::string &projectName) {
 		}
 	}
 
-	std::string mainFileContent = MAIN_CPP_CONTENT;
+	std::string mainFileContent = R"(
+#include <iostream>
+
+int main(int argc, const char **argv) {
+	std::cout << "Hello, World!";
+}
+	)";
+
 	std::string mainFilePath;
 	std::string makefilePath = pjgen::rootDirPath + "/Makefile";
 	std::string makefileContent;
 	if(flagSimple) {
 		mainFilePath = pjgen::rootDirPath + "/main.cpp";
-		makefileContent = MAKEFILE_SIMPLE;
+		makefileContent = "g++ main.cpp -o &OUT&";
 	} else {
 		mainFilePath = pjgen::rootDirPath + "/src/main.cpp";
-		makefileContent = MAKEFILE;
+		makefileContent = R"(
+OUT := &OUT&
+CC := g++
+DIR_SRC := src
+INC := -Isrc
+CFLAGS := -std=c++17
+SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
+OBJ := $(patsubst %.cpp, %.o, $(SRC))
+
+.PHONY: all
+
+all: $(OBJ) $(OUT)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(OUT): $(OBJ)
+	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
+
+clean:
+	rm *.o"
+		)";
 
 		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {
 			return false;

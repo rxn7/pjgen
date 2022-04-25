@@ -1,35 +1,10 @@
 #include "CTemplate.h"
 
-#define MAIN_C_CONTENT \
-	"#include <stdio.h>\n\n" \
-	"int main(int argc, const char **argv) {\n" \
-	"\tprintf(\"Hello, World!\");\n" \
-	"}"
+constexpr std::string_view CTemplate::GetName() const {
+	return "C";
+}
 
-#define MAKEFILE_SIMPLE \
-	"all:\n" \
-	"\tgcc main.c -o &OUT&\n" \
-
-#define MAKEFILE \
-	"SRCS := -c src/*.c\n" \
-	"HDRS := -Isrc\n" \
-	"CFLAGS := -std=gnu99\n" \
-	"OBJS := main.o\n" \
-	"\n" \
-	"all: compile link clean\n" \
-	"\n" \
-	"compile:\n" \
-	"\tgcc $(SRCS) $(HDRS) $(CFLAGS)\n" \
-	"\n" \
-	"link:\n" \
-	"\tgcc $(OBJS) $(LDFLAGS) -o &OUT&\n" \
-	"\n" \
-	"clean:\n" \
-	"\trm *.o"
-
-CTemplate::CTemplate() : ProjectTemplate("C") { }
-
-bool CTemplate::_Generate(std::string &projectName) {
+bool CTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
 	for(std::string flag : pjgen::flags) {
 		if(flag == "simple") {
@@ -38,16 +13,44 @@ bool CTemplate::_Generate(std::string &projectName) {
 		}
 	}
 
-	std::string mainFileContent = MAIN_C_CONTENT;
+	std::string mainFileContent = R"(
+#include <stdio.h>
+
+int main(int argc, const char **argv) {
+	printf("Hello, World!\n");
+}
+	)";
+
 	std::string mainFilePath;
 	std::string makefilePath = pjgen::rootDirPath + "/Makefile";
 	std::string makefileContent;
 	if(flagSimple) {
 		mainFilePath = pjgen::rootDirPath + "/main.c";
-		makefileContent = MAKEFILE_SIMPLE;
+		makefileContent = "gcc main.c -o &OUT&";
 	} else {
 		mainFilePath = pjgen::rootDirPath + "/src/main.c";
-		makefileContent = MAKEFILE;
+		makefileContent = R"(
+OUT := &OUT&
+CC := gcc
+DIR_SRC := src
+INC := -Isrc
+CFLAGS := -std=gnu99
+SRC := $(wildcard $(addsuffix /*.c, $(DIR_SRC)))
+OBJ := $(patsubst %.c, %.o, $(SRC))
+
+.PHONY: all
+
+all: $(OBJ) $(OUT)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(OUT): $(OBJ)
+	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
+
+clean:
+	rm *.o"
+		)";
 
 		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {
 			return false;
