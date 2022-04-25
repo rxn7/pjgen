@@ -14,11 +14,10 @@
 namespace pjgen {
 	extern std::string rootDirPath;
 	extern std::vector<std::string> flags;
-	extern std::string selectedTemplateName;
 
-	void Init(int argc, const char **argv);
-	void CreateRootDir(std::string &projectName);
-	bool WriteToFile(std::string &path, std::string &content);
 	void PrintHelp();
-	void ReplaceAll(std::string &src, std::string toReplace, std::string replaceWith);
+	void Init(int argc, const char **argv);
+	void CreateRootDir(const std::string &projectName);
+	bool WriteToFile(const std::string &path, std::string_view content);
+	void ReplaceAll(const std::string &src, std::string &dest, std::string_view toReplace, std::string_view replaceWith);
 }

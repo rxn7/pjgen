@@ -54,7 +54,7 @@ clean:
 		}
 	}
 
-	pjgen::ReplaceAll(makefileContent, "&OUT&", projectName);
+	pjgen::ReplaceAll(makefileContent, makefileContent, "&OUT&", projectName);
 
 	pjgen::WriteToFile(makefilePath, makefileContent);
 	pjgen::WriteToFile(mainFilePath, mainFileContent);

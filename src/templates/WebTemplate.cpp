@@ -25,7 +25,7 @@ R"(body {
 })";
 
 	std::string htmlPath = pjgen::rootDirPath + "/index.html";
-	pjgen::ReplaceAll(htmlContent, "&TITLE&", projectName);
+	pjgen::ReplaceAll(htmlContent, htmlContent, "&TITLE&", projectName);
 	if(!pjgen::WriteToFile(htmlPath, htmlContent)) {
 		return false;
 	}

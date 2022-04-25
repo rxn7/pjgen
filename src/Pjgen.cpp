@@ -4,7 +4,6 @@
 
 std::string pjgen::rootDirPath;
 std::vector<std::string> pjgen::flags;
-std::string pjgen::selectedTemplateName;
 
 void pjgen::Init(int argc, const char **argv) {
 	for(int i=3; i<argc; ++i) {
@@ -15,7 +14,7 @@ void pjgen::Init(int argc, const char **argv) {
 	}
 }
 
-void pjgen::CreateRootDir(std::string &projectName) {
+void pjgen::CreateRootDir(const std::string &projectName) {
 	std::filesystem::path path = std::string(getenv("PWD")) + "/" + projectName;
 
 	if(std::filesystem::exists(path)) {
@@ -28,7 +27,7 @@ void pjgen::CreateRootDir(std::string &projectName) {
 	rootDirPath = path.string();
 }
 
-bool pjgen::WriteToFile(std::string &path, std::string &content) {
+bool pjgen::WriteToFile(const std::string &path, std::string_view content) {
 	std::ofstream stream;
 	stream.open(path);
 
@@ -54,7 +53,7 @@ void pjgen::PrintHelp() {
 	puts("\t\t--simple: Good for single-file projects.");
 }
 
-void pjgen::ReplaceAll(std::string &src, std::string toReplace, std::string replaceWith) {
+void pjgen::ReplaceAll(const std::string &src, std::string &dest, std::string_view toReplace, std::string_view replaceWith) {
 	std::ostringstream oss;
 	std::size_t pos = 0;
 	std::size_t prevPos = 0;
@@ -71,5 +70,5 @@ void pjgen::ReplaceAll(std::string &src, std::string toReplace, std::string repl
 	}
 
 	oss << src.substr(prevPos);
-	src = oss.str();
+	dest = oss.str();
 }
