@@ -37,7 +37,7 @@ CFLAGS := -std=gnu99
 SRC := $(wildcard $(addsuffix /*.c, $(DIR_SRC)))
 OBJ := $(patsubst %.c, %.o, $(SRC))
 
-.PHONY: all
+.PHONY: all clean
 
 all: $(OBJ) $(OUT)
 

@@ -38,7 +38,7 @@ CFLAGS := -std=c++17
 SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
 OBJ := $(patsubst %.cpp, %.o, $(SRC))
 
-.PHONY: all
+.PHONY: all clean
 
 all: $(OBJ) $(OUT)
 
