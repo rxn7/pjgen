@@ -1,6 +1,6 @@
 #include "CTemplate.h"
 
-constexpr std::string_view CTemplate::GetName() const {
+inline constexpr std::string_view CTemplate::GetName() const {
 	return "C";
 }
 

@@ -1,7 +1,7 @@
 #include "WebTemplate.h"
 #include "Pjgen.h"
 
-constexpr std::string_view WebTemplate::GetName() const {
+inline constexpr std::string_view WebTemplate::GetName() const {
 	return "Web";
 }
 

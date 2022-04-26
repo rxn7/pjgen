@@ -1,6 +1,6 @@
 #include "PythonTemplate.h"
 
-constexpr std::string_view PythonTemplate::GetName() const {
+inline constexpr std::string_view PythonTemplate::GetName() const {
 	return "Python";
 }
 
