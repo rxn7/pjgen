@@ -1,9 +1,5 @@
 #include "CppTemplate.h"
 
-inline constexpr std::string_view CppTemplate::GetName() const {
-	return "C++";
-}
-
 bool CppTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
 	for(std::string_view flag : pjgen::flags) {

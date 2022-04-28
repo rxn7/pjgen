@@ -13,6 +13,7 @@ int main(int argc, const char **argv) {
 		{{"cpp", "cc" "c++"}, std::make_unique<CppTemplate>()},
 		{{"web", "html", "css"}, std::make_unique<WebTemplate>()},
 		{{"py", "python"}, std::make_unique<PythonTemplate>()},
+		{{"ts", "typescript"}, std::make_unique<TypescriptTemplate>()},
 	};
 
         if(argc < 2) {
