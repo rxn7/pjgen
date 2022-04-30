@@ -34,7 +34,7 @@ R"(OUT := &OUT&
 CC := g++
 DIR_SRC := src
 INC := -Isrc
-CFLAGS := -std=c++17
+CFLAGS := -std=c++20
 SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
 OBJ := $(patsubst %.cpp, %.o, $(SRC))
 
