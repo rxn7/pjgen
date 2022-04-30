@@ -5,7 +5,7 @@
 #include "templates/CTemplate.h"
 #include "templates/CppTemplate.h"
 
-static void InvalidArguments();
+static void InvalidArgsError();
 
 int main(int argc, const char **argv) {
 	std::pair<std::list<std::string>, std::unique_ptr<ProjectTemplate>> templates[] {
@@ -15,16 +15,14 @@ int main(int argc, const char **argv) {
 		{{"py", "python"}, std::make_unique<PythonTemplate>()},
 	};
 
-        if(argc < 2) {
-		InvalidArguments();
-        }
+        if(argc < 2)
+		InvalidArgsError();
 
 	if(strcmp(argv[1], "--help") == 0) {
 		pjgen::PrintHelp();
-		exit(EXIT_FAILURE);
-	} else if(argc < 3) {
-		InvalidArguments();
-	}
+		return 0;
+	} else if(argc < 3)
+		InvalidArgsError();
 
 	pjgen::Init(argc, argv);
 
@@ -49,11 +47,10 @@ int main(int argc, const char **argv) {
 	}
 
 	ColoredPrintLine(RED, "Couldn't find template '" << language << "'.");
-
 	return EXIT_FAILURE;
 }
 
-static void InvalidArguments() {
+static void InvalidArgsError() {
 	printf("Invalid arguments, type `pjgen --help` for help.\n");
 	exit(EXIT_FAILURE);
 }
