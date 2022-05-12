@@ -29,12 +29,12 @@ R"(body {
 	margin: 0;
 })";
 
-	std::string htmlPath = pjgen::rootDirPath + "/index.html";
+	std::string htmlPath = "index.html";
 	pjgen::ReplaceAll(htmlContent, htmlContent, "&TITLE&", projectName);
 
 	if(flagJs) {
 		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "\n<script src=\"index.js\"></script>");
-		pjgen::WriteToFile(pjgen::rootDirPath + "/index.js", "");
+		pjgen::WriteToFile("index.js", "");
 	} else {
 		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "");
 	}
@@ -42,7 +42,7 @@ R"(body {
 	if(!pjgen::WriteToFile(htmlPath, htmlContent))
 		return false;
 
-	std::string cssPath = pjgen::rootDirPath + "/style.css";
+	std::string cssPath = "style.css";
 	if(!pjgen::WriteToFile(cssPath, cssContent))
 		return false;
 

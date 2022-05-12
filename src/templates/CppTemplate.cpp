@@ -18,13 +18,13 @@ int main(int argc, const char **argv) {
 )";
 
 	std::string mainFilePath;
-	std::string makefilePath = pjgen::rootDirPath + "/Makefile";
+	std::string makefilePath = "Makefile";
 	std::string makefileContent;
 	if(flagSimple) {
-		mainFilePath = pjgen::rootDirPath + "/main.cpp";
+		mainFilePath = "main.cpp";
 		makefileContent = "all:\n\tg++ main.cpp -o &OUT&";
 	} else {
-		mainFilePath = pjgen::rootDirPath + "/src/main.cpp";
+		mainFilePath =  "src/main.cpp";
 		makefileContent = 
 R"(OUT := &OUT&
 CC := g++
@@ -47,7 +47,7 @@ $(OUT): $(OBJ)
 clean:
 	rm $(OBJ) $(OUT))";
 
-		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {
+		if(!std::filesystem::create_directory("src")) {
 			return false;
 		}
 	}

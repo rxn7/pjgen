@@ -1,4 +1,5 @@
 #include "Pjgen.h"
+#include <unistd.h>
 
 #include "templates/PythonTemplate.h"
 #include "templates/WebTemplate.h"
@@ -28,7 +29,7 @@ int main(int argc, const char **argv) {
 
 	std::string projectName = argv[2];
 	std::string language = argv[1];
-	std::transform(language.begin(), language.end(), language.begin(), tolower);
+	std::transform(language.begin(), language.end(), language.begin(), tolower); // Convert user-entered language to lower case
 
 	for(const auto &[aliases, templ] : templates) {
 		for(std::string alias : aliases) {

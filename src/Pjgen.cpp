@@ -1,8 +1,8 @@
-#include "Pjgen.h"
+#include "Pjgen.h" 
 #include "ColoredPrint.h"
 #include <fstream>
+#include <unistd.h>
 
-std::string pjgen::rootDirPath;
 std::vector<std::string_view> pjgen::flags;
 
 void pjgen::Init(int argc, const char **argv) {
@@ -23,7 +23,7 @@ void pjgen::CreateRootDir(const std::string &projectName) {
 
 	std::filesystem::create_directory(path);
 	std::cout << "Root directory: " << path << "\n";
-	rootDirPath = path.string();
+	chdir(path.c_str());
 }
 
 bool pjgen::WriteToFile(const std::string &path, std::string_view content) {
