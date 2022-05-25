@@ -26,7 +26,8 @@ int main(int argc, const char **argv) {
 		mainFilePath = "src/main.c";
 		makefileContent = 
 R"(OUT := &OUT&
-CC := g++
+CC := gcc
+OBJ_DIR := obj
 DIR_SRC := src
 INC := -Isrc
 CFLAGS := -std=c++20

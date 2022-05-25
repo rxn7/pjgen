@@ -28,6 +28,7 @@ int main(int argc, const char **argv) {
 		makefileContent = 
 R"(OUT := &OUT&
 CC := g++
+OBJ_DIR := obj
 DIR_SRC := src
 INC := -Isrc
 CFLAGS := -std=c++20
