@@ -26,22 +26,25 @@ int main(int argc, const char **argv) {
 		mainFilePath = "src/main.c";
 		makefileContent = 
 R"(OUT := &OUT&
-CC := gcc
+CC := g++
 DIR_SRC := src
 INC := -Isrc
-CFLAGS := -std=gnu99
-SRC := $(wildcard $(addsuffix /*.c, $(DIR_SRC)))
-OBJ := $(patsubst %.c, %.o, $(SRC))
+CFLAGS := -std=c++20
+SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
+OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-.PHONY: all clean
+all: create_obj_dir $(OBJ) $(OUT)
 
-all: $(OBJ) $(OUT)
-
-%.o: %.c
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OUT): $(OBJ)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
+	@mkdir -p $(@D)
+	$(CC) $(LIBS) $(OBJ) -o $@
+
+create_obj_dir:
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	rm $(OBJ) $(OUT))";

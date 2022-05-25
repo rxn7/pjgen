@@ -32,17 +32,20 @@ DIR_SRC := src
 INC := -Isrc
 CFLAGS := -std=c++20
 SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
-OBJ := $(patsubst %.cpp, %.o, $(SRC))
+OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-.PHONY: all clean
+all: create_obj_dir $(OBJ) $(OUT)
 
-all: $(OBJ) $(OUT)
-
-%.o: %.cpp
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OUT): $(OBJ)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
+	@mkdir -p $(@D)
+	$(CC) $(LIBS) $(OBJ) -o $@
+
+create_obj_dir:
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	rm $(OBJ) $(OUT))";
