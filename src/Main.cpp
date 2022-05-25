@@ -9,11 +9,11 @@
 static void InvalidArgsError();
 
 int main(int argc, const char **argv) {
-	std::pair<std::list<std::string>, std::unique_ptr<ProjectTemplate>> templates[] {
-		{{"c"}, std::make_unique<CTemplate>()},
-		{{"cpp", "cc" "c++"}, std::make_unique<CppTemplate>()},
-		{{"web", "html", "css"}, std::make_unique<WebTemplate>()},
-		{{"py", "python"}, std::make_unique<PythonTemplate>()},
+	std::pair<std::string, std::unique_ptr<ProjectTemplate>> templates[] {
+		{"c", std::make_unique<CTemplate>()},
+		{"cpp cc c++", std::make_unique<CppTemplate>()},
+		{"web html css", std::make_unique<WebTemplate>()},
+		{"py python", std::make_unique<PythonTemplate>()},
 	};
 
         if(argc < 2)
@@ -32,7 +32,10 @@ int main(int argc, const char **argv) {
 	std::transform(language.begin(), language.end(), language.begin(), tolower); // Convert user-entered language to lower case
 
 	for(const auto &[aliases, templ] : templates) {
-		for(std::string alias : aliases) {
+		std::stringstream aliasesSs(aliases);
+		std::string alias;
+
+		while(aliasesSs >> alias) {
 			if(language == alias) {
 				pjgen::CreateRootDir(projectName);
 				if(templ->Generate(projectName)) {
