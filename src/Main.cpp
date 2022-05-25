@@ -36,7 +36,8 @@ int main(int argc, const char **argv) {
 		std::string alias;
 
 		while(aliasesSs >> alias) {
-			if(language == alias) { pjgen::CreateRootDir(projectName); if(templ->Generate(projectName)) {
+			if(language == alias) {
+				pjgen::CreateRootDir(projectName); if(templ->Generate(projectName)) {
 					ColoredPrintLine(GREEN, "Project '" << projectName << "' successfully generated!");
 					exit(EXIT_SUCCESS);
 				} else {
