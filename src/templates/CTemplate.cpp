@@ -30,13 +30,12 @@ CC := gcc
 OBJ_DIR := obj
 DIR_SRC := src
 INC := -Isrc
-CFLAGS := -std=c++20
-SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
+SRC := $(wildcard $(addsuffix /*.c, $(DIR_SRC)))
 OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
 all: create_obj_dir $(OBJ) $(OUT)
 
-$(OBJ_DIR)/%.o: %.cpp
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
