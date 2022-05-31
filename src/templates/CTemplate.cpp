@@ -31,7 +31,7 @@ OBJ_DIR := obj
 DIR_SRC := src
 INC := -Isrc
 SRC := $(wildcard $(addsuffix /*.c, $(DIR_SRC)))
-OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
+OBJ := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: create_obj_dir $(OBJ) $(OUT)
 
