@@ -1,24 +1,28 @@
-OUT := ./pjgen
-
-DIR_SRC += ./src
-DIR_SRC += ./src/templates
-
+OUT := pjgen
+CC := g++
+OBJ_DIR := obj
+DIR_SRC := src src/templates
+INC := -Isrc
 CFLAGS := -std=c++20
-
 SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
-OBJ := $(patsubst %.cpp, %.o, $(SRC))
+OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-all: $(OBJ) $(OUT)
+all: create_obj_dir $(OBJ) $(OUT)
 
-%.o: %.cpp
-	g++ $(CFLAGS) -Isrc -c $< -o $@
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OUT): $(OBJ)
-	g++ $(CFLAGS) $(OBJ) -o $@
+	@mkdir -p $(@D)
+	$(CC) $(LDFLAGS) $(OBJ) -o $@
+
+create_obj_dir:
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -r $(OUT) $(OBJ)
+	rm $(OBJ) $(OUT)
 
 install:
 	make
-	sudo cp ./pjgen /usr/bin/
+	sudo cp $(OUT) /usr/bin/
