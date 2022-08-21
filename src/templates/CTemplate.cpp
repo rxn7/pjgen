@@ -41,7 +41,7 @@ $(OBJ_DIR)/%.o: %.c
 
 $(OUT): $(OBJ)
 	@mkdir -p $(@D)
-	$(CC) $(LIBS) $(OBJ) -o $@
+	$(CC) $(LDFLAGS) $(OBJ) -o $@
 
 create_obj_dir:
 	@mkdir -p $(OBJ_DIR)
