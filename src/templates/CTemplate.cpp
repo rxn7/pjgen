@@ -28,16 +28,16 @@ int main(int argc, const char **argv) {
 R"(OUT := &OUT&
 CC := gcc
 OBJ_DIR := obj
-DIR_SRC := src
-INC := -Isrc
-SRC := $(wildcard $(addsuffix /*.c, $(DIR_SRC)))
+SRC_DIR := src
+INCFLAGS := -Isrc
+SRC := $(wildcard $(addsuffix /*.c, $(SRC_DIR)))
 OBJ := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: create_obj_dir $(OBJ) $(OUT)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(OUT): $(OBJ)
 	@mkdir -p $(@D)
