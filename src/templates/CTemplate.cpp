@@ -1,4 +1,5 @@
 #include "CTemplate.h"
+#include "RunScript.h"
 
 bool CTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
@@ -25,15 +26,17 @@ int main(int argc, const char **argv) {
 	} else {
 		mainFilePath = "src/main.c";
 		makefileContent = 
-R"(OUT := &OUT&
+R"(
 CC := gcc
 OBJ_DIR := obj
 SRC_DIR := src
+BIN_DIR := bin
+OUT := $(BIN_DIR)/&OUT&
 INCFLAGS := -Isrc
 SRC := $(wildcard $(addsuffix /*.c, $(SRC_DIR)))
 OBJ := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 
-all: create_obj_dir $(OBJ) $(OUT)
+all: create_dirs $(OBJ) $(OUT)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
@@ -43,8 +46,8 @@ $(OUT): $(OBJ)
 	@mkdir -p $(@D)
 	$(CC) $(LDFLAGS) $(OBJ) -o $@
 
-create_obj_dir:
-	@mkdir -p $(OBJ_DIR)
+create_dirs:
+	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
 
 clean:
 	rm $(OBJ) $(OUT))";
@@ -58,6 +61,8 @@ clean:
 
 	pjgen::WriteToFile(makefilePath, makefileContent);
 	pjgen::WriteToFile(mainFilePath, mainFileContent);
+
+	CreateRunScript(projectName);
 
 	return true;
 }

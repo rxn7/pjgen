@@ -1,4 +1,5 @@
 #include "CppTemplate.h"
+#include "RunScript.h"
 
 bool CppTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
@@ -26,16 +27,18 @@ int main(int argc, const char **argv) {
 	} else {
 		mainFilePath =  "src/main.cpp";
 		makefileContent = 
-R"(OUT := &OUT&
+R"(
 CC := g++
 OBJ_DIR := obj
 SRC_DIR := src
+BIN_DIR := bin
+OUT := $(BIN_DIR)/&OUT&
 INCFLAGS := -Isrc
 CFLAGS := -std=c++20
 SRC := $(wildcard $(addsuffix /*.cpp, $(SRC_DIR)))
 OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-all: create_obj_dir $(OBJ) $(OUT)
+all: create_dirs $(OBJ) $(OUT)
 
 $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(@D)
@@ -45,11 +48,11 @@ $(OUT): $(OBJ)
 	@mkdir -p $(@D)
 	$(CC) $(LDFLAGS) $(OBJ) -o $@
 
-create_obj_dir:
-	@mkdir -p $(OBJ_DIR)
+create_dirs:
+	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
 
 clean:
-	rm $(OBJ) $(OUT))";
+	rm -rf $(OBJ) $(OUT))";
 
 		if(!std::filesystem::create_directory("src")) {
 			return false;
@@ -60,6 +63,8 @@ clean:
 
 	pjgen::WriteToFile(makefilePath, makefileContent);
 	pjgen::WriteToFile(mainFilePath, mainFileContent);
+
+	CreateRunScript(projectName);
 
 	return true;
 }
