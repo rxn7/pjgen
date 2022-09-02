@@ -52,7 +52,7 @@ create_dirs:
 	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
 
 clean:
-	rm -rf $(OBJ) $(OUT))";
+	rm -rf $(OBJ_DIR) $(BIN_DIR))";
 
 		if(!std::filesystem::create_directory("src")) {
 			return false;
