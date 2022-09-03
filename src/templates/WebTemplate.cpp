@@ -1,16 +1,18 @@
 #include "WebTemplate.h"
 #include "Pjgen.h"
 
-constexpr std::string_view WebTemplate::GetName() const {
-	return "Web";
-}
-
 bool WebTemplate::_Generate(std::string &projectName) const {
-	bool flagJs = false;
+	enum : std::uint8_t {
+		NoScript = 0,
+		JavaScript,
+		TypeScript,
+	} type = NoScript;
+
 	for(std::string_view flag : pjgen::flags) {
 		if(flag == "js") {
-			flagJs = true;
-			break;
+			type = JavaScript;
+		} else if(flag == "ts") {
+			type = TypeScript;
 		}
 	}
 
@@ -33,23 +35,24 @@ R"(body {
 	margin: 0;
 })";
 
-	std::string htmlPath = pjgen::rootDirPath + "/index.html";
+	std::string htmlPath = "index.html";
 	pjgen::ReplaceAll(htmlContent, htmlContent, "&TITLE&", projectName);
-	if(flagJs) {
+
+	if(type == JavaScript) {
 		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "\n<script src=\"index.js\"></script>");
-		pjgen::WriteToFile(pjgen::rootDirPath + "/index.js", "");
+		pjgen::WriteToFile("index.js", "");
+	} else if(type == TypeScript) {
+		// TODO:
 	} else {
 		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "");
 	}
 
-	if(!pjgen::WriteToFile(htmlPath, htmlContent)) {
+	if(!pjgen::WriteToFile(htmlPath, htmlContent))
 		return false;
-	}
 
-	std::string cssPath = pjgen::rootDirPath + "/style.css";
-	if(!pjgen::WriteToFile(cssPath, cssContent)) {
+	std::string cssPath = "style.css";
+	if(!pjgen::WriteToFile(cssPath, cssContent))
 		return false;
-	}
 
 	return true;
 }

@@ -1,8 +1,5 @@
 #include "CppTemplate.h"
-
-constexpr std::string_view CppTemplate::GetName() const {
-	return "C++";
-}
+#include "RunScript.h"
 
 bool CppTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
@@ -15,42 +12,49 @@ bool CppTemplate::_Generate(std::string &projectName) const {
 
 	std::string mainFileContent = 
 R"(#include <iostream>
+
 int main(int argc, const char **argv) {
 	std::cout << "Hello, World!";
 }
 )";
 
 	std::string mainFilePath;
-	std::string makefilePath = pjgen::rootDirPath + "/Makefile";
+	std::string makefilePath = "Makefile";
 	std::string makefileContent;
 	if(flagSimple) {
-		mainFilePath = pjgen::rootDirPath + "/main.cpp";
+		mainFilePath = "main.cpp";
 		makefileContent = "all:\n\tg++ main.cpp -o &OUT&";
 	} else {
-		mainFilePath = pjgen::rootDirPath + "/src/main.cpp";
+		mainFilePath =  "src/main.cpp";
 		makefileContent = 
-R"(OUT := &OUT&
+R"(
 CC := g++
-DIR_SRC := src
-INC := -Isrc
-CFLAGS := -std=c++17
-SRC := $(wildcard $(addsuffix /*.cpp, $(DIR_SRC)))
-OBJ := $(patsubst %.cpp, %.o, $(SRC))
+OBJ_DIR := obj
+SRC_DIR := src
+BIN_DIR := bin
+OUT := $(BIN_DIR)/&OUT&
+INCFLAGS := -Isrc
+CFLAGS := -std=c++20
+SRC := $(wildcard $(addsuffix /*.cpp, $(SRC_DIR)))
+OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-.PHONY: all
+all: create_dirs $(OBJ) $(OUT)
 
-all: $(OBJ) $(OUT)
-
-%.o: %.cpp
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(OUT): $(OBJ)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $@
+	@mkdir -p $(@D)
+	$(CC) $(LDFLAGS) $(OBJ) -o $@
+
+create_dirs:
+	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
 
 clean:
-	rm *.o")";
+	rm -rf $(OBJ_DIR) $(BIN_DIR))";
 
-		if(!std::filesystem::create_directory(pjgen::rootDirPath + "/src")) {
+		if(!std::filesystem::create_directory("src")) {
 			return false;
 		}
 	}
@@ -59,6 +63,8 @@ clean:
 
 	pjgen::WriteToFile(makefilePath, makefileContent);
 	pjgen::WriteToFile(mainFilePath, mainFileContent);
+
+	CreateRunScript(projectName);
 
 	return true;
 }

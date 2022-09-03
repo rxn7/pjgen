@@ -12,7 +12,6 @@
 #include "ColoredPrint.h"
 
 namespace pjgen {
-	extern std::string rootDirPath;
 	extern std::vector<std::string_view> flags;
 
 	void PrintHelp();

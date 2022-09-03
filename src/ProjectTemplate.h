@@ -4,7 +4,7 @@
 
 class ProjectTemplate {
 public:
-	virtual constexpr std::string_view GetName() const = 0;
+	virtual inline constexpr std::string_view GetName() const = 0;
 	bool Generate(std::string &name) const;
 
 protected:
