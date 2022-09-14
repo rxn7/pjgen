@@ -62,7 +62,7 @@ clean:
 	pjgen::WriteToFile(makefilePath, makefileContent);
 	pjgen::WriteToFile(mainFilePath, mainFileContent);
 
-	CreateRunScript(projectName);
+	CreateRunScript(projectName, !flagSimple);
 
 	return true;
 }

@@ -3,4 +3,4 @@
 #include "Pjgen.h"
 #include <string>
 
-void CreateRunScript(const std::string &out);
+void CreateRunScript(const std::string &out, bool pushd = true);
