@@ -1,3 +1,4 @@
+#include "ColoredPrint.h"
 #include "Pjgen.h"
 #include <unistd.h>
 
@@ -37,7 +38,8 @@ int main(int argc, const char **argv) {
 
 		while(aliasesSs >> alias) {
 			if(language == alias) {
-				pjgen::CreateRootDir(projectName); if(templ->Generate(projectName)) {
+				pjgen::CreateRootDir(projectName); 
+                                if(templ->Generate(projectName)) {
 					ColoredPrintLine(GREEN, "Project '" << projectName << "' successfully generated!");
 					exit(EXIT_SUCCESS);
 				} else {
@@ -54,6 +56,6 @@ int main(int argc, const char **argv) {
 }
 
 static void InvalidArgsError() {
-	printf("Invalid arguments, type `pjgen --help` for help.\n");
+	ColoredPrintLine(RED, "Invalid arguments, type `pjgen --help` for help.");
 	exit(EXIT_FAILURE);
 }

@@ -1,4 +1,5 @@
 #include "WebTemplate.h"
+#include "ColoredPrint.h"
 #include "Pjgen.h"
 
 bool WebTemplate::_Generate(std::string &projectName) const {
@@ -42,7 +43,8 @@ R"(body {
 		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "\n<script src=\"index.js\"></script>");
 		pjgen::WriteToFile("index.js", "");
 	} else if(type == TypeScript) {
-		// TODO:
+                ColoredPrintLine(RED, "Typescript web template is not implemented yet!");
+                return false;
 	} else {
 		pjgen::ReplaceAll(htmlContent, htmlContent, "&JS&", "");
 	}
