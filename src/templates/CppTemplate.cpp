@@ -27,8 +27,7 @@ int main(int argc, const char **argv) {
 	} else {
 		mainFilePath =  "src/main.cpp";
 		makefileContent = 
-R"(
-CC := g++
+R"(CC := g++
 OBJ_DIR := obj
 SRC_DIR := src
 BIN_DIR := bin
