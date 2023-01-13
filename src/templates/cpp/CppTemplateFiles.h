@@ -29,7 +29,7 @@
 "\n" \
     "$(OUT): $(OBJ)\n" \
     "\t@mkdir -p $(@D)\n" \
-    "\t$(CC) $(LDFLAGS) $(OBJ) -o $@\n" \
+    "\t$(CC) $(OBJ) $(LDFLAGS) -o $@\n" \
 "\n" \
     "create_dirs:\n" \
     "\t@mkdir -p $(OBJ_DIR) $(BIN_DIR)\n" \
