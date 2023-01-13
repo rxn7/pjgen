@@ -2,10 +2,10 @@
 #include "Pjgen.h"
 #include <unistd.h>
 
-#include "templates/PythonTemplate.h"
-#include "templates/WebTemplate.h"
-#include "templates/CTemplate.h"
-#include "templates/CppTemplate.h"
+#include "templates/python/PythonTemplate.h"
+#include "templates/web/WebTemplate.h"
+#include "templates/c/CTemplate.h"
+#include "templates/cpp/CppTemplate.h"
 
 static void InvalidArgsError();
 
@@ -17,7 +17,7 @@ int main(int argc, const char **argv) {
 		{"py python", std::make_unique<PythonTemplate>()},
 	};
 
-        if(argc < 2)
+	if(argc < 2)
 		InvalidArgsError();
 
 	if(strcmp(argv[1], "--help") == 0) {
@@ -39,7 +39,7 @@ int main(int argc, const char **argv) {
 		while(aliasesSs >> alias) {
 			if(language == alias) {
 				pjgen::CreateRootDir(projectName); 
-                                if(templ->Generate(projectName)) {
+				if(templ->Generate(projectName)) {
 					ColoredPrintLine(GREEN, "Project '" << projectName << "' successfully generated!");
 					exit(EXIT_SUCCESS);
 				} else {

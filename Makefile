@@ -1,11 +1,11 @@
 CC := g++
 OBJ_DIR := obj
-SRC_DIR := src src/templates
+SRC_DIR := src
 BIN_DIR := bin
 OUT := $(BIN_DIR)/pjgen
 INCFLAGS := -Isrc
 CFLAGS := -std=c++20
-SRC := $(wildcard $(addsuffix /*.cpp, $(SRC_DIR)))
+SRC := $(wildcard *.cpp */*.cpp */*/*.cpp */*/*/*.cpp) # TODO: This is terrible
 OBJ := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
 all: create_dirs $(OBJ) $(OUT)
