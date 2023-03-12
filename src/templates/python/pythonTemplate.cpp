@@ -1,5 +1,5 @@
-#include "PythonTemplate.h"
-#include "templates/python/PythonTemplateFIles.h"
+#include "pythonTemplate.h"
+#include "templates/python/pythonTemplateFIles.h"
 
 bool PythonTemplate::_Generate(std::string &projectName) const {
 	std::string filePath = "main.py";

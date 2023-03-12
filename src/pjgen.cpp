@@ -1,5 +1,5 @@
-#include "Pjgen.h" 
-#include "ColoredPrint.h"
+#include "pjgen.h" 
+#include "coloredPrint.h"
 #include <fstream>
 #include <unistd.h>
 

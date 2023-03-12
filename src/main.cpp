@@ -1,11 +1,11 @@
-#include "ColoredPrint.h"
-#include "Pjgen.h"
+#include "coloredPrint.h"
+#include "pjgen.h"
 #include <unistd.h>
 
-#include "templates/python/PythonTemplate.h"
-#include "templates/web/WebTemplate.h"
-#include "templates/c/CTemplate.h"
-#include "templates/cpp/CppTemplate.h"
+#include "templates/python/pythonTemplate.h"
+#include "templates/web/webTemplate.h"
+#include "templates/c/cTemplate.h"
+#include "templates/cpp/cppTemplate.h"
 
 static void InvalidArgsError();
 

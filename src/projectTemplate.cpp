@@ -1,5 +1,5 @@
-#include "ProjectTemplate.h"
-#include "Pjgen.h"
+#include "projectTemplate.h"
+#include "pjgen.h"
 
 bool ProjectTemplate::Generate(std::string &name) const {
 	ColoredPrintLine(WHITE, "Generating project '" << name << "' from " << GetName() << " template...");

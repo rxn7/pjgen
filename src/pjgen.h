@@ -8,8 +8,8 @@
 #include <algorithm>
 #include <list>
 
-#include "ProjectTemplate.h"
-#include "ColoredPrint.h"
+#include "projectTemplate.h"
+#include "coloredPrint.h"
 
 namespace pjgen {
 	extern std::vector<std::string_view> flags;

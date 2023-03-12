@@ -1,6 +1,6 @@
-#include "CppTemplate.h"
-#include "RunScript.h"
-#include "templates/cpp/CppTemplateFiles.h"
+#include "cppTemplate.h"
+#include "runScript.h"
+#include "templates/cpp/cppTemplateFiles.h"
 
 bool CppTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;

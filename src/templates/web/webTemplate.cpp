@@ -1,7 +1,7 @@
-#include "WebTemplate.h"
-#include "ColoredPrint.h"
-#include "Pjgen.h"
-#include "templates/web/WebTemplateFiles.h"
+#include "webTemplate.h"
+#include "coloredPrint.h"
+#include "pjgen.h"
+#include "templates/web/webTemplateFiles.h"
 
 bool WebTemplate::_Generate(std::string &projectName) const {
 	enum : std::uint8_t {

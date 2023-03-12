@@ -1,5 +1,5 @@
-#include "RunScript.h"
-#include "Pjgen.h"
+#include "runScript.h"
+#include "pjgen.h"
 
 #define RUN_SCRIPT_HEADER "#!/usr/bin/env bash\n\n"
 

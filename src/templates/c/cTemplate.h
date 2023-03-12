@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Pjgen.h"
+#include "pjgen.h"
 
 class CTemplate : public ProjectTemplate {
 public:

@@ -1,7 +1,7 @@
-#include "CTemplate.h"
-#include "ColoredPrint.h"
-#include "RunScript.h"
-#include "templates/c/CTemplateFiles.h"
+#include "cTemplate.h"
+#include "coloredPrint.h"
+#include "runScript.h"
+#include "templates/c/cTemplateFiles.h"
 
 bool CTemplate::_Generate(std::string &projectName) const {
 	bool flagSimple = false;
