@@ -52,10 +52,13 @@ int main(int argc, const char **argv) {
 	}
 
 	ColoredPrintLine(RED, "Couldn't find template '" << language << "'.");
+	pjgen::PrintHelp();
+
 	return EXIT_FAILURE;
 }
 
 static void InvalidArgsError() {
-	ColoredPrintLine(RED, "Invalid arguments, type `pjgen --help` for help.");
+	ColoredPrintLine(RED, "You typed invalid arguments!");
+	pjgen::PrintHelp();
 	exit(EXIT_FAILURE);
 }
