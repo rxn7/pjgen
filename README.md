@@ -5,7 +5,7 @@ Any kind of feedback would be much appreciated.
 # Supported languages
 * C  
 * C++  
-* HTML/CSS  
+* HTML/CSS/JS/TS
 * Python
 * More coming soon...  
 * It's very easy to add your own templates  
